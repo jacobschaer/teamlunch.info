@@ -35,7 +35,7 @@ function select_location(location_data) {
 
 function searchYelp(search_location, search_term) {
     $.ajax({
-        url: "teams/test1/lunches/location_search/",
+        url: "/teams/test1/lunches/location_search/",
         data: {
             "term": search_location,
             "location": search_term,

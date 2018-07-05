@@ -35,7 +35,7 @@ function select_location(location_data) {
 
 function searchYelp(search_location, search_term) {
     $.ajax({
-        url: "http://127.0.0.1:8000/teams/test1/lunches/location_search/",
+        url: "/teams/test1/lunches/location_search/",
         data: {
             "term": "pizza",
             "location": "92128",

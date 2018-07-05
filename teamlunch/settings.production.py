@@ -1,4 +1,5 @@
 from .settings_core import *
+import os
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
@@ -7,7 +8,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
-            'read_default_file': '/site-config/teamlunch.info/my.cnf',
+            'read_default_file': os.path.expanduser('~/site-config/teamlunch.info/my.cnf'),
         },
     }
 }

@@ -45,3 +45,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
  ]
+
+ ALLOWED_HOSTS = ['www.teamlunch.info', 'teamlunch.info']

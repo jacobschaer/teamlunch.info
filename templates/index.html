@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+      <div class="row">
+        <div class="col-lg-6 text-center">
+          <h1 class="mt-5">The old way</h1>
+          <div class="card">
+              <div class="card-header bg-info text-white">
+                Company Instant Message App
+              </div>
+              <div class="card-body text-left">
+                <ul>
+                    <li>Coworker: Do you want to get lunch?</li>
+                    <li>You: Umm.. sure. What do you want?</li>
+                    <li>Coworker: IDK - I heard {other coworkers} were going to {restaurant x}</li>
+                    <li>You: That sounds fine - when are they going?</li>
+                    <li>Coworker: Let me check</li>
+                    <li>Coworker: They said 12:45</li>
+                    <li>You: Can it wait to 1:00?</li>
+                    <li>Coworker: That's fine with me, let me check with them</li>
+                    <li>Coworker: They're fine with that</li>
+                    <li>You: OK, so lunch at {restuarant x} at 1:00?</li>
+                    <li>Coworker: Yes</li>
+                </ul>
+              </div>
+            </div>
+        </div>
+        <div class="col-lg-6 text-center">
+          <h1 class="mt-5">The new way</h1>
+          <div class="card">
+              <div class="card-body text-left">
+                <ol>
+                    <li>Create an account</li>
+                    <li>Build a team</li>
+                    <li>Invite coworkers by email</li>
+                    <li>Propose lunch location and time</li>
+                    <li>Reminders are sent out automatically</li>
+                </ol>
+              </div>
+            </div>
+        </div>        
+      </div>
+{% endblock %}

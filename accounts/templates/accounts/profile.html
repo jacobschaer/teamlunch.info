@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Welcome {{ user }}</h1>
+    <div class="row">
+      <div class="col-lg-6 text-left">
+        <h2>Update Settings</h2>
+        <form method="POST" class="post-form">{% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="save btn btn-default">Save</button>
+        </form>
+      </div>
+      <div class="col-lg-6 text-left">
+        <h2>My Teams</h2>
+        <ul class="list-group">
+            {% for team in teams %}
+                <li class="list-group-item"><a href="{% url 'teams:view' team.slug %}">{{ team.name }}</a></li>
+            {% endfor %}
+        </ul>
+        <a class="btn btn-primary" href="{% url 'teams:create' %}">New Team</a>
+      </div>
+    </div>      
+{% endblock %}

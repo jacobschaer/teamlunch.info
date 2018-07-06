@@ -3,6 +3,9 @@ teamlunch/settings.py
 static/*
 static
 
+# Local caches
+*yelp_cache.sqlite
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

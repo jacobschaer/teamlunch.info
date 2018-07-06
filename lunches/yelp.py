@@ -19,9 +19,8 @@ Sample usage of the program:
 from __future__ import print_function
 
 import argparse
-import json
-import pprint
 import requests
+import requests_cache
 import sys
 import urllib
 from django.conf import settings
@@ -39,6 +38,7 @@ except ImportError:
     from urllib import quote
     from urllib import urlencode
 
+MAX_RESULTS = 50 # Per the API docs
 
 # Yelp Fusion no longer uses OAuth as of December 7, 2017.
 # You no longer need to provide Client ID to fetch Data
@@ -57,7 +57,11 @@ BUSINESS_PATH = '/v3/businesses/'  # Business ID will come after slash.
 # Defaults for our simple example.
 DEFAULT_TERM = 'dinner'
 DEFAULT_LOCATION = 'San Francisco, CA'
-SEARCH_LIMIT = 3
+SEARCH_LIMIT = MAX_RESULTS
+
+# Setup caching
+# 21600 seconds = 6 hours
+requests_cache.install_cache('yelp_cache', backend='sqlite', expire_after=21600)
 
 
 def request(host, path, api_key, url_params=None):
@@ -88,7 +92,7 @@ def request(host, path, api_key, url_params=None):
     return response.json()
 
 
-def search(api_key, term, location):
+def search(api_key, term, location, radius=None, limit=SEARCH_LIMIT):
     """Query the Search API by a search term and location.
 
     Args:
@@ -102,8 +106,10 @@ def search(api_key, term, location):
     url_params = {
         'term': term.replace(' ', '+'),
         'location': location.replace(' ', '+'),
-        'limit': SEARCH_LIMIT
+        'limit': limit,
     }
+    if radius is not None:
+        url_params['radius'] = radius
     return request(API_HOST, SEARCH_PATH, api_key, url_params=url_params)
 
 
@@ -116,25 +122,25 @@ def get_business(api_key, business_id):
     Returns:
         dict: The JSON response from the request.
     """
+
     business_path = BUSINESS_PATH + business_id
 
     return request(API_HOST, business_path, api_key)
 
-
-def query_api(term, location):
+def query_api(term, location, radius=None, limit=SEARCH_LIMIT):
     """Queries the API by the input values from the user.
 
     Args:
         term (str): The search term to query.
         location (str): The location of the business to query.
     """
-    response = search(API_KEY, term, location)
+    response = search(API_KEY, term, location, radius=radius, limit=limit)
 
     businesses = response.get('businesses')
 
     if not businesses:
         print(u'No businesses for {0} in {1} found.'.format(term, location))
-        return
+        return []
 
     for business in businesses:
         business_id = business['id']
@@ -143,7 +149,6 @@ def query_api(term, location):
                 len(businesses), business_id))
         response = get_business(API_KEY, business_id)
         print(u'Result for business "{0}" found:'.format(business_id))
-        pprint.pprint(response, indent=2)
         yield response
 
 

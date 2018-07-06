@@ -14,8 +14,12 @@ DATABASES = {
 }
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
+EMAIL_HOST = SITE_SETTINGS.get('EMAIL_HOST', 'localhost')
+EMAIL_PORT = SITE_SETTINGS.get('EMAIL_PORT', 25)
+EMAIL_HOST_USER = SITE_SETTINGS.get('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = SITE_SETTINGS.get('EMAIL_HOST_PASSWORD', '')
+EMAIL_USE_TLS = SITE_SETTINGS.get('EMAIL_USE_TLS', False)
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 

@@ -23,6 +23,8 @@ import requests
 import requests_cache
 import sys
 import urllib
+import os
+
 from django.conf import settings
 
 # This client code can run on Python 2.x or 3.x.  Your imports can be
@@ -61,7 +63,7 @@ SEARCH_LIMIT = MAX_RESULTS
 
 # Setup caching
 # 21600 seconds = 6 hours
-requests_cache.install_cache('yelp_cache', backend='sqlite', expire_after=21600)
+requests_cache.install_cache(settings.YELP_CACHE_DB, backend='sqlite', expire_after=21600)
 
 
 def request(host, path, api_key, url_params=None):

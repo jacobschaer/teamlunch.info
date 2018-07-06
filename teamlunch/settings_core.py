@@ -69,6 +69,9 @@ AUTHENTICATION_BACKENDS = (
 # Yelp API
 YELP_API_KEY = SITE_SETTINGS.get('YELP_API_KEY', '')
 
+# Yelp Requests Cache
+YELP_CACHE_DB = os.path.expanduser('~/site-config/teamlunch.info/yelp_cache_db')
+
 # Django Social Auth Facebook Parameters
 SOCIAL_AUTH_FACEBOOK_KEY = SITE_SETTINGS.get('SOCIAL_AUTH_FACEBOOK_KEY', '')
 SOCIAL_AUTH_FACEBOOK_SECRET = SITE_SETTINGS.get('SOCIAL_AUTH_FACEBOOK_SECRET', '')
